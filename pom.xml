@@ -1,0 +1,540 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>satgururest</groupId>
+	<artifactId>satgururest</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>satgururest</name>
+	<description>satgururest</description>
+	<build>
+		<finalName>satgururest</finalName>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<!-- <plugin> <groupId>org.wildfly.plugins</groupId> <artifactId>wildfly-maven-plugin</artifactId> 
+				<version>1.1.0.Alpha5</version> <configuration> <hostname>192.168.1.45</hostname> 
+				<port>8080</port> <username></username> <password></password> <name>ttnc.war</name> 
+				</configuration> </plugin> -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<properties>
+		<springframework.version>4.2.9.RELEASE</springframework.version>
+		<springsecurity.version>4.2.0.RELEASE</springsecurity.version>
+		<hibernate.version>3.6.10.Final</hibernate.version>
+		<mysql.connector.version>5.1.31</mysql.connector.version>
+		<log4j.version>1.2.16</log4j.version>
+		<jackson.version>1.7.4</jackson.version>
+	</properties>
+	<scm>
+		<connection>:pserver:ravi@@192.168.1.220:/jenkinrepo</connection>
+		<developerConnection>:pserver:ravi@@192.168.1.220:/jenkinrepo</developerConnection>
+		<url>:pserver:ravi@@192.168.1.220:/jenkinrepo</url>
+		<tag>HEAD</tag>
+	</scm>
+	<dependencies>
+		<dependency>
+			<groupId>ttesb</groupId>
+			<artifactId>ttesb</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ttesb.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>ttnc</groupId>
+			<artifactId>ttnc</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ttnc.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>satguruportal</groupId>
+			<artifactId>satguruportal</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/satguruportal.jar</systemPath>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.1.6.RELEASE</version>
+		</dependency>
+
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${springsecurity.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${springsecurity.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>4.0.1.RELEASE</version>
+		</dependency>
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+  <!-- Hibernate c3p0 connection pool -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<!-- EHCache Core APIs -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.6.9</version>
+		</dependency>
+		<!-- Hibernate EHCache API -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<!-- EHCache uses slf4j for logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<!-- MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.connector.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.6.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-extras</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-servlet</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-template</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-el</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version> <!-- makesure correct version here -->
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.8.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.1.3.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160810</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-core -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-core</artifactId>
+			<version>6.3.0.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-compiler -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-compiler</artifactId>
+			<version>6.3.0.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-decisiontables -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-decisiontables</artifactId>
+			<version>6.2.0.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-jsr94 -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-jsr94</artifactId>
+			<version>5.5.0.Final</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-templates -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-templates</artifactId>
+			<version>6.2.0.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mvel/mvel2 -->
+		<dependency>
+			<groupId>org.mvel</groupId>
+			<artifactId>mvel2</artifactId>
+			<version>2.2.4.Final</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-api -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-api</artifactId>
+			<version>6.3.0.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-internal -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-internal</artifactId>
+			<version>6.3.0.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/au.com.bytecode/opencsv -->
+		<dependency>
+			<groupId>au.com.bytecode</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jms -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>4.0.0.RELEASE</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-all -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-all</artifactId>
+			<version>5.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jdt.core.compiler</groupId>
+			<artifactId>ecj</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-jxpath/commons-jxpath -->
+		<dependency>
+			<groupId>commons-jxpath</groupId>
+			<artifactId>commons-jxpath</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/jdom/jdom -->
+		<dependency>
+			<groupId>jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.wutka/jox -->
+		<dependency>
+			<groupId>com.wutka</groupId>
+			<artifactId>jox</artifactId>
+			<version>1.16</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.1.6</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.2.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.spy</groupId>
+			<artifactId>spymemcached</artifactId>
+			<version>2.12.0</version>
+		</dependency>
+		
+		
+<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpcore</artifactId>
+    <version>4.4.4</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.5.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java -->
+<dependency>
+    <groupId>com.mashape.unirest</groupId>
+    <artifactId>unirest-java</artifactId>
+    <version>1.4.9</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore-nio -->
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpcore-nio</artifactId>
+    <version>4.4.4</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpasyncclient -->
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpasyncclient</artifactId>
+    <version>4.1.1</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.cybersource/cybersource-sdk-java -->
+<dependency>
+    <groupId>com.cybersource</groupId>
+    <artifactId>cybersource-sdk-java</artifactId>
+    <version>6.2.4</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+    <version>2.9.0</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.data</groupId>
+    <artifactId>spring-data-redis</artifactId>
+    <version>1.8.4.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.7.0</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.7.0</version>
+</dependency>
+
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.fasterxml</groupId>
+				<artifactId>classmate</artifactId>
+				<version>1.2.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>

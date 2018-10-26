@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- Database connection settings -->
+	<!-- 	<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://192.168.1.118:3306/ttsatdb</property>  -->
+		<!-- <property name="hibernate.connection.url">jdbc:mysql://192.168.2.43:3306/ttsatdb</property> -->
+		
+	<!-- 	<property name="hibernate.connection.username">traveluser</property>
+		<property name="hibernate.connection.password">Traveluser@123</property> -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+ 		<!-- <property name="hibernate.connection.pool_size">10</property>	 -->
+	<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+		
+		
+		<!-- 	<property name="hibernate.c3p0.min_size">10</property>
+	    <property name="hibernate.c3p0.max_size">50</property>
+        <property name="hibernate.c3p0.timeout">1800</property>
+        <property name="hibernate.c3p0.max_statements">100</property>
+        <property name="hibernate.c3p0.idle_test_period">1500</property> -->
+        
+	<!-- 	  <property name="hibernate.c3p0.min_size">5</property>
+		  <property name="hibernate.c3p0.max_size">20</property>
+		  <property name="hibernate.c3p0.timeout">300</property>
+		  <property name="hibernate.c3p0.max_statements">50</property> -->
+		<!--   <property name="hibernate.c3p0.idle_test_period">3000</property>  -->
+		  
+		  
+		<!-- <property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="net.sf.ehcache.configurationResourceName">/ehcache.xml</property> -->
+		
+		<property name="show_sql">false</property>
+		<mapping class="com.tt.ts.payment.model.PaymentMode"/>
+		<mapping class="com.tt.ts.rest.agent.model.AgentModel" />
+		<mapping class="com.tt.ts.rest.agent.model.UserModal" />
+		<mapping class="com.tt.ts.rest.agent.model.AgentDocumentModel" />
+		<mapping class="com.tt.ts.rest.agent.model.AgentCreditLimitModel" />
+		<mapping class="com.tt.ts.rest.corporate.model.CorporateModel" />
+		<mapping class="com.tt.ts.rest.corporate.model.CorporateFinanceContact" />
+		<mapping class="com.tt.ts.rest.corporate.model.CorporateTravelCordinator" />
+ 		<mapping class="com.tt.ts.rest.pax.model.PaxModel" />
+ 		<mapping class="com.tt.ts.rest.pax.model.PaxAirlinePrefernce" />
+ 		<mapping class="com.tt.ts.rest.pax.model.PaxFrequentFlyer" />
+		<mapping class="com.tt.ts.rest.pax.model.PaxDocumentModel" />
+		<mapping class="com.tt.ts.rest.pax.model.PaxRelationModel" />
+		
+		<mapping class="com.tt.ts.rest.register.model.RegisterModel" />
+		<mapping class="com.tt.nc.group.model.GroupModal" />
+		<!-- <mapping class="com.tt.nc.beans.group.entities.GroupUserMapping"/> 
+			<mapping class="com.tt.nc.beans.group.entities.GroupUserCompositeId"/> -->
+		<mapping class="com.tt.nc.roles.model.UserRoles" />
+		<mapping class="com.tt.nc.user.model.User" />
+		<mapping class="com.tt.nc.user.model.UserAddress" />
+		<mapping class="com.tt.nc.user.model.UserContacts" />
+		<mapping class="com.tt.nc.user.model.UserCompoundID" />
+		<mapping class="com.tt.nc.site.model.SiteBean" />
+		<mapping class="com.tt.nc.cm.model.content.ContentTypesBean" />
+		<mapping class="com.tt.nc.cm.model.category.CategoryBean" />
+		<mapping class="com.tt.nc.cm.model.content.GenericContentBean" />
+		<mapping class="com.tt.nc.cm.model.content.PageSectionProgramBean" />
+		<mapping class="com.tt.nc.template.model.UserTemplateBean" />
+		<mapping class="com.tt.nc.menu.model.PortalMenuBean" />
+		<mapping class="com.tt.nc.layout.model.LayoutBean" />
+		<mapping class="com.tt.nc.menu.model.MenuLayoutSection" />
+
+		<mapping class="com.tt.nc.template.model.TemplateMenuMapping" />
+		<!-- Product Bean -->
+		<mapping class="com.tt.nc.cm.model.product.ProductBean" />
+		<mapping class="com.tt.nc.cm.model.product.ProductImagesBean" />
+		<mapping class="com.tt.nc.cm.model.product.ProductFeatureBean" />
+		<mapping class="com.tt.nc.cm.model.product.ProductCompoundID" />
+
+		<!-- End Product Bean -->
+
+		<mapping class="com.tt.ts.geolocations.model.RegionBean" />
+		<mapping class="com.tt.ts.geolocations.model.CountryBean" />
+		<mapping class="com.tt.ts.geolocations.model.StateBean" />
+		<mapping class="com.tt.ts.geolocations.model.CityBean" />
+		<mapping class="com.tt.ts.geolocations.model.RegionCountryMapping" />
+		<mapping class="com.tt.ts.geolocations.model.RegionCountryCompundID" />
+
+		<mapping class="com.tt.ts.currency.model.CurrencyBean" />
+		<mapping class="com.tt.ts.currency.model.CurrencyCountryMapping" />
+		<mapping class="com.tt.ts.currency.model.CurrencyCountryCompoundId" />
+
+		<mapping class="com.tt.ts.language.model.LanguageModal" />
+		<mapping class="com.tt.ts.language.model.LanguageCountryMapping" />
+		<mapping class="com.tt.ts.language.model.LanguageCountryCompoundId" />
+
+		<mapping class="com.tt.ts.airport.model.AirportModal" />
+		<!-- <mapping class="com.tt.ts.hotel.model.HotelMasterModel" /> -->
+		<mapping class="com.tt.ts.hotel.model.HotelModel" />
+
+		<mapping class="com.tt.ts.airport.model.AirportCountryMapping" />
+
+		<!-- <mapping class="com.tt.ts.organization.model.GroupModal"/> -->
+		<mapping class="com.tt.ts.organization.model.OrganizationModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationFinancialModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationProductModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationPccModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationContactModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationAccountModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationDocumentModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationProductSupplierModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationAirlineSetting" />
+		<mapping class="com.tt.ts.organization.model.OrganizationTicketPccModal" />
+		<mapping class="com.tt.ts.organization.model.OrganizationPaymentModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationDocumentModel" />
+		<mapping class="com.tt.ts.organization.model.OrganizationAirlineCodeModal" />
+		<mapping class="com.tt.ts.organization.model.OrganizationAgencyModal" />
+		 <mapping class="com.tt.ts.organization.model.OrganizationPaymentMethodPgModel"/>
+		<mapping class="com.tt.ts.product.model.ProductModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineRuleMapModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineCountryModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineBranchModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineAgencyModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineImagesModal" />
+
+		<!-- RBD -->
+		<mapping class="com.tt.ts.rbd.model.RbdModel" />
+		<mapping class="com.tt.ts.rbd.model.RBDCountryPosMapping" />
+		<mapping class="com.tt.ts.flighttag.model.FlightTagModel" />
+		<mapping class="com.tt.ts.flighttag.model.FlightTagCountryMapping" />
+		<mapping class="com.tt.ts.flighttag.model.TagFlightCityModel" />
+	    <mapping class="com.tt.ts.flighttag.model.TagFlightCountryModel" />
+	   	<mapping class="com.tt.ts.flighttag.model.TagFlightCountryPosModel" /> 
+		<!-- staff -->
+		<mapping class="com.tt.ts.staff.model.Staff" />
+		<mapping class="com.tt.ts.staff.model.UserGroupMappingModel" />
+		<!-- staff -->
+		<mapping class="com.tt.ts.designation.model.DesignationModel" />
+		<mapping class="com.tt.ts.department.model.DepartmentModel" />
+
+		<mapping class="com.tt.ts.common.enums.model.EnumModel" />
+		<mapping class="com.tt.ts.bsp.model.BspCommissionModel" />
+		<mapping class="com.tt.ts.bsp.model.BspFareBasisModel" />
+		<mapping class="com.tt.ts.bsp.model.BspMarginModel" />
+		<mapping class="com.tt.ts.bsp.model.BspCountryModel" />
+		<mapping class="com.tt.ts.bsp.model.BspCityModel" />
+		<mapping class="com.tt.ts.bsp.model.BspAirportModel" />
+		<mapping class="com.tt.ts.bsp.model.BspMarginRbdModal" />
+
+		<!-- UCCF -->
+		<mapping class="com.tt.ts.uccf.modal.UCCFModal" />
+		<mapping class="com.tt.ts.uccf.modal.UCCFCityMapping" />
+		<mapping class="com.tt.ts.uccf.modal.UCCFPosMapping" />
+		<!-- UCCF -->
+
+<mapping class="com.tt.ts.payment.model.FraudulentModel"/>
+
+	<mapping class="com.tt.ts.blacklist.model.BlackOutFlightModel" />
+	  <mapping class="com.tt.ts.blacklist.model.BlackOutFlightCountryModel" />
+	  <mapping class="com.tt.ts.blacklist.model.BlackListFlightCityModel" />
+	  <mapping class="com.tt.ts.blacklist.model.BlackListFlightCountryPosModel" />
+
+		<mapping class="com.tt.ts.countrypcc.model.CountryPccModel" />
+		<mapping class="com.tt.ts.countrypcc.model.CoutryPccMapModel" />
+		<!-- Rule Engine Entity Entries Start -->
+		<mapping class="com.tt.ts.ruleengine.model.RuleAttributeCategory" />
+		<mapping class="com.tt.ts.ruleengine.model.RuleAttributeMapping" />
+		<mapping class="com.tt.ts.ruleengine.model.Rules" />
+		<mapping class="com.tt.ts.ruleengine.model.RuleCriteriaElements" />
+		<!-- Rule Engine Entity Entries End -->
+
+		<!--Knowledge Center Entities Starts Here -->
+		<mapping class="com.tt.ts.knowledgecenter.model.KnowledgeCenterModel" />
+		<mapping class="com.tt.ts.knowledgecenter.model.KnowledgeCenterCountryModel" />
+		<mapping class="com.tt.ts.knowledgecenter.model.KnowledgeCenterBranchModel" />
+		<mapping class="com.tt.ts.knowledgecenter.model.KnowledgeCenterAgencyModel" />
+		<mapping class="com.tt.ts.knowledgecenter.model.KnowledgeCenterDestinationCityModel" />
+		<!--Knowledge Center Entities Ends Here -->
+
+		<!-- Supplier -->
+		<mapping class="com.tt.ts.supplier.modal.SupplierModal" />
+		<mapping class="com.tt.ts.supplier.modal.SupplierCommissionModal" />
+		<mapping class="com.tt.ts.supplier.modal.SupplierContactModal" />
+		<mapping class="com.tt.ts.supplier.modal.SupplierProductModal" />
+		<mapping class="com.tt.ts.supplier.modal.SupplierSettlementModal" />
+		<mapping class="com.tt.ts.suppliercredential.modal.SupplierCredentialModal" />
+		<mapping
+			class="com.tt.ts.suppliercredential.modal.SupplierCredentialAirlineModal" />
+		<mapping
+			class="com.tt.ts.suppliercredential.modal.SupplierCredentialCountryModal" />
+		<mapping
+			class="com.tt.ts.suppliercredential.modal.SupplierCredentialFieldModal" />
+		<mapping
+			class="com.tt.ts.suppliercredential.modal.SupplierCredentialValueModal" />
+		<!-- Supplier -->
+
+		<!-- Role -->
+		<mapping class="com.tt.ts.role.modal.RoleModal" />
+		<mapping class="com.tt.ts.role.modal.RoleTabMenuMapping" />
+		<!-- Role Ends -->
+
+		<!--User Role Mapping -->
+		<mapping class="com.tt.ts.role.modal.UserRoleMapping" />
+		
+		<!--Agency Markup Model -->
+		<mapping class="com.tt.ts.rest.agent.model.AgencyMarkupModel" />
+		
+		<!-- Airline Mapping -->
+		<mapping class="com.tt.ts.airline.model.AirlineModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineAgencyModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineBranchModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineImagesModal" />
+		<mapping class="com.tt.ts.airline.model.AirlineCountryModel" />
+		<mapping class="com.tt.ts.airline.model.AirlineRuleMapModel" />
+
+		<!--User Role Mapping -->
+		<!-- Start for Satguru Hotels -->
+		<mapping class="com.tt.ws.rest.hotel.model.HotelSatguruModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelSatGuruAmnetiesModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelSatGuruAddressModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelSatguruImgModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelSatguruDescModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelSatguruContactsModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelSatguruCheckInOutModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelAmnetiesModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelZipDetailsModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelCityDetailsModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelStateDetailsModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelCountryDetailsModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelSatMappingModel" />
+		<mapping class="com.tt.ws.rest.hotel.model.HotelRecommendationModel" />
+		<!-- End for Satguru Hotels -->
+
+	 	<mapping class="com.tt.ts.gdsdealcode.model.GDSDealCodeModel"/>
+		<mapping class="com.tt.ts.gdsdealcode.model.GDSDealCodeAgencyModel"/>
+		<mapping class="com.tt.ts.gdsdealcode.model.GDSDealCodeAirportModel"/>
+		<mapping class="com.tt.ts.gdsdealcode.model.GDSDealCodeCountryModel"/>
+		
+        <mapping class="com.tt.ts.rest.error.modal.ErrorCodeModal"/>
+        <mapping class="com.tt.ts.rest.dashboard.model.AgentToDoListModel"/>
+        
+        <!-- Email Notification -->
+		<mapping class="com.tt.ts.jms.model.EmailNotificationBean"/>
+		<!-- <mapping class="com.tt.satguruportal.insurance.model.EmailNotificationEntity"/> -->
+		<!--  -->	
+		<mapping class="com.tt.satguruportal.flight.model.popularsector.FlightPopularSector"/>
+		
+	</session-factory>
+</hibernate-configuration>

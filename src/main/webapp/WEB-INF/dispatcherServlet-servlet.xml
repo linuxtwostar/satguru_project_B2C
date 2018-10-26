@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                       http://www.springframework.org/schema/context
+                       http://www.springframework.org/schema/context/spring-context-4.3.xsd                   
+                       	http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+                        http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+                       http://www.springframework.org/schema/mvc
+                       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<context:annotation-config />
+	<context:component-scan base-package="com.tt.ws.rest"></context:component-scan>
+	<context:component-scan base-package="com.tt"></context:component-scan>
+	<!-- <context:component-scan base-package="com.test.controller"></context:component-scan> -->
+  <bean name="swaggerConfig" class="com.tt.ts.swagger.SwaggerConfig" />  
+	<mvc:view-controller path="/" view-name="/" />
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- ApplicationResources.properties Configuration -->
+
+	<!-- <bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:ApplicationResources" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+ -->
+	 <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:${spring.profiles.active}ApplicationResources" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<!-- End ApplicationResources.properties Configuration -->
+
+	<!-- @START : EMAIL related Configurations -->
+
+	<!-- <context:property-placeholder
+		location="classpath:ApplicationResources.properties" /> -->
+	
+	<context:property-placeholder
+		location="classpath:${spring.profiles.active}ApplicationResources.properties"
+		ignore-unresolvable="true" />
+		
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${smtp.host}" />
+		<property name="port" value="${smtp.port}" />
+		<property name="username" value="${smtp.user}" />
+		<property name="password" value="${smtp.pass}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="applicationContextProvder"
+                        class="com.tt.nc.core.config.ApplicationContextProvider"/>
+	
+<!--  START REDIS CACHE CONFIGURATIONS -->
+
+<!-- FOR FLIGHT -->
+
+	<bean
+        id="jedisPoolConfigFlight"
+        class="redis.clients.jedis.JedisPoolConfig"
+        p:maxTotal="100"
+        p:maxIdle="20"
+    />
+	<bean id="jedisConnectionFactoryFlight"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${tt.rest.host}" p:port="${tt.rest.rediscache.port.flight}"
+		p:use-pool="true" p:pool-config-ref="jedisPoolConfigFlight" p:timeout ="5000" />
+
+	<bean id="stringRedisSerializer"
+		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+
+	<bean id="redisTemplateFlight" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactoryFlight" p:keySerializer-ref="stringRedisSerializer"
+		p:hashKeySerializer-ref="stringRedisSerializer" />
+
+	<bean id='redisCacheManagerFlight' class='org.springframework.data.redis.cache.RedisCacheManager'
+		c:redis-operations-ref='redisTemplateFlight' />
+
+<!-- FOR HOTEL -->
+
+	<bean
+        id="jedisPoolConfigHotel"
+        class="redis.clients.jedis.JedisPoolConfig"
+        p:maxTotal="100"
+        p:maxIdle="20"
+    />
+	<bean id="jedisConnectionFactoryHotel"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${tt.rest.host}" p:port="${tt.rest.rediscache.port.hotel}"
+		p:use-pool="true" p:pool-config-ref="jedisPoolConfigHotel" p:timeout ="5000" />
+
+	<bean id="redisTemplateHotel" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactoryHotel" p:keySerializer-ref="stringRedisSerializer"
+		p:hashKeySerializer-ref="stringRedisSerializer" />
+
+
+	<bean id='redisCacheManagerHotel' class='org.springframework.data.redis.cache.RedisCacheManager'
+		c:redis-operations-ref='redisTemplateHotel' />
+
+<!-- FOR OTHER -->
+	<bean
+        id="jedisPoolConfigOther"
+        class="redis.clients.jedis.JedisPoolConfig"
+        p:maxTotal="100"
+        p:maxIdle="20"
+    />
+    
+	<bean id="jedisConnectionFactoryOther"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${tt.rest.host}" p:port="${tt.rest.rediscache.port.insurance}"
+		p:use-pool="true" p:pool-config-ref="jedisPoolConfigOther" p:timeout ="5000" />
+
+
+	<bean id="redisTemplateOther" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactoryOther" p:keySerializer-ref="stringRedisSerializer"
+		p:hashKeySerializer-ref="stringRedisSerializer" />
+
+
+	<bean id='redisCacheManagerOther' class='org.springframework.data.redis.cache.RedisCacheManager'
+		c:redis-operations-ref='redisTemplateOther' />
+		
+<!-- FOR CAR -->		
+
+	<bean
+        id="jedisPoolConfigCar"
+        class="redis.clients.jedis.JedisPoolConfig"
+        p:maxTotal="100"
+        p:maxIdle="20"
+    />
+	<bean id="jedisConnectionFactoryCar"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${tt.rest.host}" p:port="${tt.rest.rediscache.port.car}"
+		p:use-pool="true" p:pool-config-ref="jedisPoolConfigHotel" p:timeout ="5000" />
+
+	<bean id="redisTemplateCar" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactoryCar" p:keySerializer-ref="stringRedisSerializer"
+		p:hashKeySerializer-ref="stringRedisSerializer" />
+
+
+	<bean id='redisCacheManagerCar' class='org.springframework.data.redis.cache.RedisCacheManager'
+		c:redis-operations-ref='redisTemplateCar' />
+		
+<!-- FOR ACTIVITIES -->
+	<bean
+        id="jedisPoolConfigActivities"
+        class="redis.clients.jedis.JedisPoolConfig"
+        p:maxTotal="100"
+        p:maxIdle="20"
+    />
+    
+	<bean id="jedisConnectionFactoryActivities"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${tt.rest.host}" p:port="${tt.rest.rediscache.port.activities}"
+		p:use-pool="true" p:pool-config-ref="jedisPoolConfigActivities" p:timeout ="5000" />
+
+
+	<bean id="redisTemplateActivities" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactoryActivities" p:keySerializer-ref="stringRedisSerializer"
+		p:hashKeySerializer-ref="stringRedisSerializer" />
+
+
+	<bean id='redisCacheManagerActivities' class='org.springframework.data.redis.cache.RedisCacheManager'
+		c:redis-operations-ref='redisTemplateActivities' />	
+		
+		
+		<!-- FOR FLIGHT & INSURANCE -->
+	<bean
+        id="jedisPoolConfigFlightNInsurance"
+        class="redis.clients.jedis.JedisPoolConfig"
+        p:maxTotal="100"
+        p:maxIdle="20"
+    />
+    
+	<bean id="jedisConnectionFactoryFlightNInsurance"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${tt.rest.host}" p:port="${tt.rest.rediscache.port.flightninsurance}"
+		p:use-pool="true" p:pool-config-ref="jedisPoolConfigFlightNInsurance" p:timeout ="5000" />
+
+
+	<bean id="redisTemplateFlightNInsurance" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactoryFlightNInsurance" p:keySerializer-ref="stringRedisSerializer"
+		p:hashKeySerializer-ref="stringRedisSerializer" />
+
+
+	<bean id='redisCacheManagerFlightNInsurance' class='org.springframework.data.redis.cache.RedisCacheManager'
+		c:redis-operations-ref='redisTemplateFlightNInsurance' />
+		
+		<!-- FOR MEET & GREET -->
+	<bean
+        id="jedisPoolConfigMeetNGreet"
+        class="redis.clients.jedis.JedisPoolConfig"
+        p:maxTotal="100"
+        p:maxIdle="20"
+    />
+    
+	<bean id="jedisConnectionFactoryMeetNGreet"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${tt.rest.host}" p:port="${tt.rest.rediscache.port.meetngreet}"
+		p:use-pool="true" p:pool-config-ref="jedisPoolConfigMeetNGreet" p:timeout ="5000" />
+
+
+	<bean id="redisTemplateMeetNGreet" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactoryMeetNGreet" p:keySerializer-ref="stringRedisSerializer"
+		p:hashKeySerializer-ref="stringRedisSerializer" />
+
+
+	<bean id='redisCacheManagerMeetNGreet' class='org.springframework.data.redis.cache.RedisCacheManager'
+		c:redis-operations-ref='redisTemplateMeetNGreet' />
+	
+		
+<!--  END REDIS CACHE CONFIGURATIONS -->
+
+</beans>
